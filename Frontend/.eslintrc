@@ -1,0 +1,59 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "globals": {
+    "document": false
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "es6": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "globalReturn": false
+    }
+  },
+
+  "plugins": ["fp", "flowtype"],
+
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-duplicate-imports": "error",
+    "prefer-const": "error",
+    "prefer-spread": "error",
+    "prefer-rest-params": "error",
+    "no-param-reassign": "error",
+    "symbol-description": "error",
+    "no-shadow": "error",
+    "prefer-promise-reject-errors": "error",
+    "eqeqeq": ["error", "smart"],
+    "no-invalid-this": "error",
+    "no-eval": "error",
+    "complexity": ["warn", 7],
+    "valid-jsdoc": "error",
+    "no-console": 0,
+
+    "fp/no-unused-expression": 0,
+    "fp/no-arguments": "error",
+    "fp/no-class": "error",
+    "fp/no-delete": "error",
+    "fp/no-events": "error",
+    "fp/no-get-set": "error",
+    "fp/no-let": "error",
+    "fp/no-loops": "error",
+    "fp/no-mutating-assign": "error",
+    "fp/no-mutating-methods": "error",
+    "fp/no-mutation": "error",
+    "fp/no-proxy": "error",
+    "fp/no-rest-parameters": "error",
+    "fp/no-this": "error",
+    "fp/no-throw": "error",
+    "fp/no-valueof-field": "error",
+    "no-var": "error"
+  }
+}
