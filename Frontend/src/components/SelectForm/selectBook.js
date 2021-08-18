@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBookSelectionValue, getBookOptions } from '../../store/selectReducer';
 
-export default function selectForm() {
+export default function SelectForm() {
   const AuthorID = useSelector(store => store.selectOptions.selectedAuthor);
 
   const dispatch = useDispatch();
@@ -13,14 +13,14 @@ export default function selectForm() {
   const [bookOpt, setbookOpt] = useState();
 
   useEffect(() => {
-    AuthorID ? dispatch(getBookOptions(AuthorID[0].value)) : false;
+    AuthorID && dispatch(getBookOptions(AuthorID[0].value));
     setbookOpt(false);
-  }, [AuthorID]);
+  }, [AuthorID, dispatch]);
 
   useEffect(() => {
-    currBook ? setbookOpt(currBook) : false;
+    currBook && setbookOpt(currBook);
     currBook && dispatch(setBookSelectionValue(currBook));
-  }, [currBook]);
+  }, [currBook, dispatch]);
 
   const bookOptions = useSelector(store => store.selectOptions.bookOpts);
 

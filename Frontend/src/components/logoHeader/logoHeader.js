@@ -2,12 +2,12 @@
 
 import React from 'react';
 import logo from '../../files/logo.png';
-import './logoHeader.scss';
+import './LogoHeader.scss';
 
 function LogoHeader() {
   return (
     <div className="header">
-      <img className="header--image" src={logo}></img>
+      <img className="header--image" src={logo} alt="Logo"></img>
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import './inputForm.scss';
+import './InputForm.scss';
 
 import { formInputAuthor } from '../../store/addAuthorBookReducer';
 
-export default function addAuthorForm() {
+export default function AddAuthorForm() {
   const dispatch = useDispatch();
   const [displayAut, setdisplayAut] = useState(false);
 

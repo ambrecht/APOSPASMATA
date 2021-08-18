@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { formInputBook } from '../../store/addAuthorBookReducer';
 
-export default function addBookForm() {
+export default function AddBookForm() {
   const select = useSelector(state => state);
 
   const selectedAuthor = select.selectOptions.selectedAuthor;

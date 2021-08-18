@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSelectOptions, getOptions, setSelectionValue } from '../../store/selectReducer';
 
-export default function selectForm() {
+export default function SelectForm() {
   const dispatch = useDispatch();
 
   const [option, setOption] = useState();
@@ -12,12 +12,12 @@ export default function selectForm() {
 
   useEffect(() => {
     dispatch(getSelectOptions());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    currAut ? setOption(currAut) : false;
+    currAut && setOption(currAut);
     currAut && dispatch(setSelectionValue(currAut));
-  }, [currAut]);
+  }, [currAut, dispatch]);
 
   const autoren = useSelector(getOptions).autorOpts;
 

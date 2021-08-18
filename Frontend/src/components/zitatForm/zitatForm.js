@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { inputZitat } from '../../store/formReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import './zitatForm.scss';
+import './ZitatForm.scss';
 
-export default function zitatForm() {
+export default function ZitatForm() {
   const dispatch = useDispatch();
   const select = useSelector(store => store.selectOptions);
 
@@ -19,7 +19,7 @@ export default function zitatForm() {
 
   const remove = index => () => {
     setZitatFields(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
-    setCounter(prevCounter => prevCounter);
+    setCounter(prevCounter => prevCounter - 1);
   };
 
   const onSubmit = data => {
@@ -32,7 +32,7 @@ export default function zitatForm() {
 
   const clearZitate = () => {
     setZitatFields([]);
-    setCounter(1);
+    setCounter(0);
   };
 
   const spaceRemove = e => {
@@ -47,7 +47,6 @@ export default function zitatForm() {
           {zitatFields.map(index => (
             <li key={index.toString()}>
               <label>
-                Zitat{index}:
                 <textarea
                   className="zitatform--textarea"
                   name={`zitate[${index}].text`}

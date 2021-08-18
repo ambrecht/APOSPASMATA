@@ -1,10 +1,11 @@
 import React from 'react';
-import LogoHeader from './logoHeader/logoHeader';
-import Zitatform from './zitatForm/zitatForm';
-import AddAuthorForm from './InputForm/addAuthorForm';
-import AddBookForm from './InputForm/addBookForm';
-import SelectBook from './SelectForm/selectBook';
-import SelectAuthor from './SelectForm/selectAuthor';
+import LogoHeader from './LogoHeader/LogoHeader';
+import Zitatform from './ZitatForm/ZitatForm';
+import AddAuthorForm from './InputForm/AddAuthorForm';
+import AddBookForm from './InputForm/AddBookForm';
+import SelectBook from './SelectForm/SelectBook';
+import SelectAuthor from './SelectForm/SelectAuthor';
+import ZitatOutput from './ZitatOutput/ZitatOutput';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <SelectBook />
       <AddBookForm />
       <Zitatform />
+      <ZitatOutput />
     </div>
   );
 };
