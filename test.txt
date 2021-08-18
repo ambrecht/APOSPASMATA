@@ -1,0 +1,19 @@
+npm uninstall  @material-ui/core
+ @material-ui/lab
+ @testing-library/jest-dom  
+ @testing-library/react     
+ @testing-library/user-event
+ final-form
+ install
+ node-sass
+ npm
+ prettier-eslint
+ react-datepicker
+ react-dnd
+ react-dnd-html5-backend
+ react-final-form
+ react-rnd
+ redux-form
+ swr
+ uuid
+ web-vitals
