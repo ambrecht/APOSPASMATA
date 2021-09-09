@@ -14,7 +14,7 @@ module.exports = async function (fastify, opts, next) {
         queries.push(
           t.none(
             'INSERT INTO zitate (zitat, seitenzahl, buch_id, autor_id) VALUES($1, $2, $3, $4)',
-            [zitat.text, zitat.seite, bookID, authorID],
+            [zitat.value, zitat.seite, bookID, authorID],
           ),
         );
       });

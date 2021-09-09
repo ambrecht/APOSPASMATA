@@ -1,39 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { inputZitat } from '../../store/formReducer';
+import { getSeverZitate } from '../../store/zitatReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import './ZitatForm.scss';
 
 export default function ZitatForm() {
-  console.log('github test');
+  const { control, register, handleSubmit, setValue, getValues } = useForm();
+  const { fields, remove, insert } = useFieldArray({
+    control,
+    name: 'zitate',
+  });
+
   const dispatch = useDispatch();
   const select = useSelector(store => store.selectOptions);
 
-  const [zitatFields, setZitatFields] = useState([]);
-  const [counter, setCounter] = useState(1);
-  const { register, handleSubmit, setValue } = useForm();
-
-  const add = () => {
-    setZitatFields(prevIndexes => [...prevIndexes, counter]);
-    setCounter(prevCounter => prevCounter + 1);
+  const copy1 = index => {
+    console.log(index, getValues(), getValues(index));
+    navigator.clipboard.writeText(getValues(index));
   };
 
-  const remove = index => () => {
-    setZitatFields(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
-    setCounter(prevCounter => prevCounter - 1);
+  const sendDeepl = value => {
+    const text = getValues(value);
+    const prepare = text.replace(/ /g, '%20');
+    const url = `https://www.deepl.com/translator#en/de/${prepare}`;
+    window.open(url);
   };
 
   const onSubmit = data => {
+    console.log(data);
     const authorID = select.selectedAuthor.reduce(obje => obje).value;
     const bookID = select.selectedBook.reduce(obje => obje).value;
     const final = { authorID, bookID, zitate: data.zitate };
     dispatch(inputZitat(final));
-    clearZitate();
+    updateList(authorID, bookID);
+    remove();
   };
-
-  const clearZitate = () => {
-    setZitatFields([]);
-    setCounter(0);
+  const updateList = (authorID, bookID) => {
+    dispatch(getSeverZitate(authorID, bookID));
   };
 
   const spaceRemove = e => {
@@ -44,50 +48,35 @@ export default function ZitatForm() {
   return (
     <div>
       <form className="zitate__container " onSubmit={handleSubmit(onSubmit)}>
-        <ul name="zitate">
-          {zitatFields.map(index => (
-            <li key={index.toString()}>
-              <label>
-                <textarea
-                  className="zitatform--textarea"
-                  name={`zitate[${index}].text`}
-                  placeholder={'Schreib was rein hier'}
-                  ref={register}
-                  onChange={spaceRemove}
-                />
-              </label>
-
-              <input
-                name={`zitate[${index}].seite`}
-                ref={register}
-                type="number"
-                placeholder="Seitenzahl"
-              />
-              <input
-                name={`zitate[${index}].hashtag`}
-                ref={register}
-                type="text"
-                placeholder="#Hashtag"
+        {fields.map((item, index) => {
+          return (
+            <li key={item.id}>
+              <textarea
+                className="zitatform--textarea"
+                name={`zitate[${index}].value`}
+                ref={register()}
+                defaultValue={`Schreibe dein Zitat...`}
+                onChange={spaceRemove}
               />
 
-              <button onClick={remove(index)}>Delete</button>
+              <button type="button" onClick={() => remove(index)}>
+                Delete
+              </button>
+              <button type="button" onClick={() => copy1(`zitate[${index}].value`)}>
+                Copy
+              </button>
+              <button type="button" onClick={() => sendDeepl(`zitate[${index}].value`)}>
+                Deepl
+              </button>
             </li>
-          ))}
-        </ul>
-        <section>
-          <button
-            type="button"
-            onClick={() => {
-              add();
-            }}
-          >
-            Add
-          </button>
-          <button type="button" onClick={clearZitate}>
-            Clear All
-          </button>
-        </section>
-        <button type="submit">Speichern</button>
+          );
+        })}
+        <button type="button" onClick={() => insert(parseInt(2, 10))}>
+          Weiteres Zitat
+        </button>
+        <button type="button" onClick={handleSubmit(onSubmit)}>
+          Speichern
+        </button>
       </form>
     </div>
   );
